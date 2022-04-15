@@ -7,6 +7,7 @@ async function main() {
   const blog = await Blog.deploy("My blog");
 
   await blog.deployed();
+  // await contract.deployTransaction.wait()
   console.log("Blog deployed to:", blog.address);
 
   // It will create a filr named config and those details there which we will be using in our app

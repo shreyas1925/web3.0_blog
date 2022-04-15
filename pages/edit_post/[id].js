@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
 import { css } from '@emotion/css'
@@ -22,8 +22,11 @@ const SimpleMDE = dynamic(
 export default function Post() {
     const [post, setPost] = useState(null)
     const [editing, setEditing] = useState(true)
+    const [image, setImage] = useState(null)
     const router = useRouter()
     const { id } = router.query
+
+    const fileRef = useRef(null)
 
     useEffect(() => {
         fetchPost()
@@ -57,6 +60,12 @@ export default function Post() {
         setPost(data)
     }
 
+
+    function triggerOnChange() {
+        /* trigger handleFileChange handler of hidden file input */
+        fileRef.current.click()
+    }
+
     async function savePostToIpfs() {
         try {
             const added = await client.add(JSON.stringify(post))
@@ -74,18 +83,30 @@ export default function Post() {
         await contract.updatePost(post.id, post.title, hash, true)
         router.push('/')
     }
-
+    async function handleFileChange(e) {
+        /* upload cover image to ipfs and save hash to state */
+        const uploadedFile = e.target.files[0]
+        if (!uploadedFile) return
+        const added = await client.add(uploadedFile)
+        setPost(state => ({ ...state, coverImage: added.path }))
+        setImage(uploadedFile)
+    }
     if (!post) return null
 
     return (
         <div className={container}>
-            {
-                /* editing state will allow the user to toggle between */
-                /*  a markdown editor and a markdown renderer */
-            }
+
             {
                 editing && (
                     <div>
+                        {
+                            post.coverImagePath && (
+                                <img
+                                    src={post.coverImagePath}
+                                    className={coverImageStyle}
+                                />
+                            )
+                        }
                         <input
                             onChange={e => setPost({ ...post, title: e.target.value })}
                             name='title'
@@ -100,6 +121,18 @@ export default function Post() {
                             onChange={value => setPost({ ...post, content: value })}
                         />
                         <button className={button} onClick={updatePost}>Update post</button>
+                        <button
+                            onClick={triggerOnChange}
+                            className={button}
+                        >Change image</button>
+                        <button className={button} onClick={() => setEditing(editing ? false : true)}>View Post</button>
+                        <input
+                            id='selectImage'
+                            className={hiddenInput}
+                            type='file'
+                            onChange={handleFileChange}
+                            ref={fileRef}
+                        />
                     </div>
                 )
             }
@@ -118,13 +151,19 @@ export default function Post() {
                         <div className={contentContainer}>
                             <ReactMarkdown>{post.content}</ReactMarkdown>
                         </div>
+
+                        <button className={button} onClick={() => setEditing(editing ? false : true)}>Edit post</button>
                     </div>
                 )
             }
-            <button className={button} onClick={() => setEditing(editing ? false : true)}>{editing ? 'View post' : 'Edit post'}</button>
+
         </div>
     )
 }
+
+const hiddenInput = css`
+  display: none;
+`
 
 const button = css`
   background-color: #fafafa;

@@ -32,7 +32,7 @@ const index = (props) => {
                                     <div className={arrowContainer}>
                                         <img
                                             src='/arrow.svg'
-                                            alt=' arrow'
+                                            alt='arrow'
                                             className={smallArrow}
                                         />
                                     </div>

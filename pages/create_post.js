@@ -170,7 +170,8 @@ const container = css`
 `
 
 const button = css`
-  background-color: #fafafa;
+background-color: #FF5A5F;
+color:#fff;
   outline: none;
   border: none;
   border-radius: 15px;
@@ -178,7 +179,7 @@ const button = css`
   margin-right: 10px;
   font-size: 18px;
   padding: 16px 70px;
-  box-shadow: 7px 7px rgba(0, 0, 0, .1);
+//   box-shadow: 7px 7px rgba(0, 0, 0, .1);
 `
 
 export default CreatePost

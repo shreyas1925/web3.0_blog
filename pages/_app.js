@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }) {
           <Link href="/">
             <a>
               <div className={titleContainer}>
-                <h2 className={title}>Full Stack</h2>
+                <h2 className={title}>BLOG APP</h2>
                 <p className={description}>WEB3</p>
               </div>
             </a>
@@ -82,13 +82,13 @@ function MyApp({ Component, pageProps }) {
           {
             /* if the signed in user is the contract owner, we */
             /* show the nav link to create a new post */
-            (account === ownerAddress) && (
-              <Link href="/create_post">
-                <a className={link}>
-                  Create Post
-                </a>
-              </Link>
-            )
+            // (account === ownerAddress) && (
+            <Link href="/create_post">
+              <a className={link}>
+                Create Post
+              </a>
+            </Link>
+            // )
           }
         </div>
       </nav>
@@ -153,20 +153,23 @@ const buttonContainer = css`
 `
 
 const buttonStyle = css`
-  background-color: #fafafa;
+  // background-color: #fafafa;
+  background-color:#FF5A5F;
   outline: none;
   border: none;
   font-size: 18px;
   padding: 16px 70px;
   border-radius: 15px;
   cursor: pointer;
-  box-shadow: 7px 7px rgba(0, 0, 0, .1);
+  color:#fff;
+  font-weight: bold;
+  // box-shadow: 7px 7px rgba(0, 0, 0, .1);
 `
 
 const link = css`
   margin: 0px 40px 0px 0px;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: bold;
 `
 
 export default MyApp

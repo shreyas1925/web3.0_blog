@@ -107,6 +107,11 @@ export default function Post() {
                                 />
                             )
                         }
+                        {
+                            image && (
+                                <img className={coverImageStyle} src={URL.createObjectURL(image)} />
+                            )
+                        }
                         <input
                             onChange={e => setPost({ ...post, title: e.target.value })}
                             name='title'
@@ -124,7 +129,8 @@ export default function Post() {
                         <button
                             onClick={triggerOnChange}
                             className={button}
-                        >Change image</button>
+
+                        >Update image</button>
                         <button className={button} onClick={() => setEditing(editing ? false : true)}>View Post</button>
                         <input
                             id='selectImage'
@@ -166,7 +172,8 @@ const hiddenInput = css`
 `
 
 const button = css`
-  background-color: #fafafa;
+  background-color: #FF5A5F;
+  color:#fff;
   outline: none;
   border: none;
   border-radius: 15px;
@@ -175,7 +182,7 @@ const button = css`
   margin-top: 15px;
   font-size: 18px;
   padding: 16px 70px;
-  box-shadow: 7px 7px rgba(0, 0, 0, .1);
+//   box-shadow: 7px 7px rgba(0, 0, 0, .1);
 `
 
 const titleStyle = css`

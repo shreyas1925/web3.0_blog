@@ -33,9 +33,10 @@ export default function Post({ post }) {
                             ownerAddress === account && (
                                 <div className={editPost}>
                                     <Link href={`/edit_post/${id}`}>
-                                        <a>
-                                            Edit post
-                                        </a>
+                                        <button
+                                            className={button}
+                                            type='button'
+                                        >Edit Post</button>
                                     </Link>
                                 </div>
                             )
@@ -49,6 +50,7 @@ export default function Post({ post }) {
                                 />
                             )
                         }
+
                         <h1>{post.title}</h1>
                         <div className={contentContainer}>
                             <ReactMarkdown>{post.content}</ReactMarkdown>
@@ -111,6 +113,18 @@ const editPost = css`
 
 const coverImageStyle = css`
   width: 900px;
+`
+
+const button = css`
+background-color:#FF5A5F;
+outline: none;
+border: none;
+font-size: 18px;
+padding: 16px 70px;
+border-radius: 15px;
+cursor: pointer;
+color:#fff;
+font-weight: bold;
 `
 
 const container = css`

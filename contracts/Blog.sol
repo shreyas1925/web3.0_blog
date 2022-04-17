@@ -50,7 +50,7 @@ contract Blog {
     }
 
     /* creates a new post */
-    function createPost(string memory title, string memory hash) public onlyOwner {
+    function createPost(string memory title, string memory hash) public  {
         _postIds.increment();
         uint postId = _postIds.current();
         Post storage post = idToPost[postId];

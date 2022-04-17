@@ -11,6 +11,7 @@ describe("Blog", function () {
     const posts = await blog.fetchPosts()
     expect(posts[0].title).to.equal("My first post")
   })
+  
   it("Should edit a post", async function () {
     const Blog = await ethers.getContractFactory("Blog")
     const blog = await Blog.deploy("My blog")
